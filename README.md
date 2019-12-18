@@ -6,6 +6,7 @@ to author , I will update with comparison in coming days.
 
 ![alt text](https://github.com/vk1996/fullgradsaliency_TF1.0/blob/master/pngs/download.png)
 ![alt text](https://github.com/vk1996/fullgradsaliency_TF1.0/blob/master/pngs/download%20(2).png)
+![alt text](https://github.com/vk1996/fullgradsaliency_TF1.0/blob/master/pngs/download%20(1).png)
 
 # source 
 ```
