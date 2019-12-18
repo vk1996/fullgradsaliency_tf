@@ -4,6 +4,8 @@ of using input_gradients and bias_gradients to plot saliency maps of conv models
 This technique produces fine saliency maps when compared to ClassActivationMaps according 
 to author , I will update with comparison in coming days.
 
+![alt text](https://github.com/vk1996/fullgradsaliency_TF1.0/blob/master/pngs/download.png)
+
 # source 
 ```
 https://github.com/idiap/fullgrad-saliency
