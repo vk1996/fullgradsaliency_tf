@@ -2,7 +2,7 @@
 A Simple TF1.15 version of Full-Gradient Saliency Maps . The project investigates the concept 
 of using input_gradients and bias_gradients to plot saliency maps of conv models.
 This technique produces fine saliency maps when compared to ClassActivationMaps according 
-to author , we will update with comparison in coming days.
+to author , I will update with comparison in coming days.
 
 # source 
 ```
@@ -18,7 +18,9 @@ https://github.com/idiap/fullgrad-saliency
 # Usage
 
 ```
+#### tested asof now on vgg & resnet
 from fullgrad import *
+from tensorflow.keras.applications.resnet50 import ResNet50,preprocess_input
 
 K.clear_session()
 model=ResNet50(weights='imagenet')
