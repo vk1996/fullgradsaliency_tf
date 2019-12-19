@@ -22,7 +22,7 @@ https://github.com/idiap/fullgrad-saliency
 # Usage
 
 ```
-#### tested asof now on vgg & resnet
+#### tested asof now on vgg & resnet ###
 from fullgrad import *
 from tensorflow.keras.applications.resnet50 import ResNet50,preprocess_input
 
@@ -32,6 +32,8 @@ model=ResNet50(weights='imagenet')
 fullgrad=Fullgrad(model)
 fullgrad_model=fullgrad.create_fullgradmodel()
 
+### preprcossed input --> channels_last 4D array ### 
+### from respective preprocessing func ###
 cam,maxclass=fullgrad.saliency(preprocessed_input)
 
 #### more detailed usage is available in example.ipynb ####
