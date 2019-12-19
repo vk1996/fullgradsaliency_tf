@@ -18,6 +18,8 @@ class Fullgrad():
         self.layer_list=[self.base_model.layers[0].output]
         ### append layers having bias mostly conv layers ### 
         [self.layer_list.append(layer.output) for layer in self.base_model.layers if hasattr(layer,'bias')]
+        if not(isinstance(self.base_model.layers[-1],tf.keras.layers.Dense)):
+          self.layer_list.append(self.base_model.layers[-1].output)
         self.full_grad_model=Model(self.base_model.input,self.layer_list)
  
         return self.full_grad_model
