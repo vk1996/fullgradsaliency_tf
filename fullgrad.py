@@ -32,7 +32,7 @@ class Fullgrad():
         inputs = tf.math.abs(inputs)
         # Rescale operations to ensure gradients lie between 0 and 1
         inputs = inputs - tf.keras.backend.min(inputs)
-        inputs = inputs / tf.keras.backend.max(inputs)
+        inputs = inputs / tf.keras.backend.max(inputs)+K.eps()
         return inputs
     
     def saliency(self,preprocessed_input):
