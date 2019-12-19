@@ -24,7 +24,8 @@ class Fullgrad():
 
     def collect_initial_bias(self):
         ### foward pass of zero input flushes out feature map with bias alone ###
-        return self.full_grad_model(np.zeros(shape=(1,224,224,3),dtype=np.float32))
+        input_shape=(1,self.base_model.layers[0].output.shape[1].value,self.base_model.layers[0].output.shape[2].value,self.base_model.layers[0].output.shape[3].value)
+        return self.full_grad_model(np.zeros(shape=input_shape,dtype=np.float32))
 
     def postprocess(self,inputs):
         # Absolute value
