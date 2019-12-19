@@ -16,8 +16,9 @@ class Fullgrad():
     def create_fullgradmodel(self):
         ### create list with first element Input Layer since this layer has no bias ###
         self.layer_list=[self.base_model.layers[0].output]
-        ### append layers having bias mostly conv layers ### 
+        ### append layers having bias mostly conv layers with relu and final dense softmax ### 
         [self.layer_list.append(layer.output) for layer in self.base_model.layers if hasattr(layer,'bias')]
+        ### some models last layer does not contain dense layer/bias as they have direct squashing non-linearity ###
         if not(isinstance(self.base_model.layers[-1],tf.keras.layers.Dense)):
           self.layer_list.append(self.base_model.layers[-1].output)
         self.full_grad_model=Model(self.base_model.input,self.layer_list)
@@ -36,6 +37,15 @@ class Fullgrad():
         inputs = inputs - tf.keras.backend.min(inputs)
         inputs = inputs / (tf.keras.backend.max(inputs)+K.epsilon())
         return inputs
+
+    def postprocess_saliency(self,saliency_map):
+        saliency_map = saliency_map - saliency_map.min()
+        saliency_map = saliency_map / (saliency_map.max()+K.epsilon())
+        saliency_map = saliency_map.clip(0,1)
+        saliency_map=saliency_map.squeeze()
+        #print(saliency_map.shape)
+        saliency_map = np.uint8(saliency_map * 255)
+        return saliency_map
     
     def saliency(self,preprocessed_input):
         
@@ -75,7 +85,7 @@ class Fullgrad():
         ### saliency feature map is retrieved from graph ###
         saliency_fmap=sess.run(cam)
         max_class=(np.argmax(sess.run(features[-1])))
-
-        return saliency_fmap[0,:,:],max_class
-
+        ### postprocess saliency to lie btw 0-255 ###
+        return self.postprocess_saliency(saliency_fmap),max_class
+        
         
