@@ -59,7 +59,7 @@ class Fullgrad():
             ### check if input is feature map and not dense layers ###
             if len(grads.shape)>3:
                 ### summation of features multiplied with their respective feature maps ### 
-                cam=tf.math.add(cam,tf.reduce_sum(tf.image.resize(self.postprocess(grads*init_bias[i]),(224,224)),axis=-1))
+                cam=tf.math.add(cam,tf.reduce_sum(tf.image.resize(self.postprocess(grads*init_bias[i]),(input_shape[1],input_shape[2])),axis=-1))
 
         ''' the curse of TF graph refreshes all
         pretrained weights when global vars are init'''
