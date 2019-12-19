@@ -66,7 +66,7 @@ class Fullgrad():
         return saliency_map
     
     def saliency(self,preprocessed_input):
-        
+        assert(preprocessed_input.shape==self.input_shape),'Input array size {} is expected but found {}'.format(self.input_shape,preprocessed_input.shape)
         init_bias=self.collect_initial_bias()
         
         ### fetch feature map with forward pass of pre-processed inputs ###
