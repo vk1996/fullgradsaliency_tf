@@ -24,8 +24,8 @@ class Fullgrad():
 
     def collect_initial_bias(self):
         ### foward pass of zero input flushes out feature map with bias alone ###
-        input_shape=(1,self.base_model.layers[0].output.shape[1].value,self.base_model.layers[0].output.shape[2].value,self.base_model.layers[0].output.shape[3].value)
-        return self.full_grad_model(np.zeros(shape=input_shape,dtype=np.float32))
+        self.input_shape=(1,self.base_model.layers[0].output.shape[1].value,self.base_model.layers[0].output.shape[2].value,self.base_model.layers[0].output.shape[3].value)
+        return self.full_grad_model(np.zeros(shape=self.input_shape,dtype=np.float32))
 
     def postprocess(self,inputs):
         # Absolute value
@@ -59,7 +59,7 @@ class Fullgrad():
             ### check if input is feature map and not dense layers ###
             if len(grads.shape)>3:
                 ### summation of features multiplied with their respective feature maps ### 
-                cam=tf.math.add(cam,tf.reduce_sum(tf.image.resize(self.postprocess(grads*init_bias[i]),(input_shape[1],input_shape[2])),axis=-1))
+                cam=tf.math.add(cam,tf.reduce_sum(tf.image.resize(self.postprocess(grads*init_bias[i]),(self.input_shape[1],self.input_shape[2])),axis=-1))
 
         ''' the curse of TF graph refreshes all
         pretrained weights when global vars are init'''
