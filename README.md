@@ -32,7 +32,7 @@ from tensorflow.keras.applications.resnet50 import ResNet50,preprocess_input
 from tensorflow.keras import backend as K
 import numpy as np
 import os
-os.chdir('/content/fullgradsaliency_TF1.0')
+os.chdir('fullgradsaliency_TF1.0')
 from fullgrad import FullGrad
 
 K.clear_session()
@@ -44,10 +44,14 @@ fullgrad=FullGrad(base_model)
 input_=np.ones(shape=(1,224,224,3))
 preprocessed_input=preprocess_input(input_)
 
-#### check if completeness test is satisfied. Refer example.ipynb ####
+'''
+check if completeness test is satisfied. Refer example.ipynb 
+'''
 fullgrad.checkCompleteness(input_)
 
-#### now get saliency map of highest class from fullgrad model ####
+'''
+now get saliency map of highest class from fullgrad model
+'''
 
 saliency=fullgrad.saliency(preprocessed_input)
 saliency=fullgrad.postprocess_saliency_map(saliency[0])
@@ -60,7 +64,7 @@ more detailed usage is available in example.ipynb
 # TODO
 ```
 Infer on various models and report any bugs.
-The inference pipeline is bottlenecked by saving/loading 
-weights due to tf.global_variable_init behaviour.Suggest 
-someother idea to quicken the inference
+Compare the results of model by editing or
+removing the part of image having high 
+confidence on saliency heatmap.
 ```
