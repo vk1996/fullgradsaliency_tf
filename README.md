@@ -22,19 +22,23 @@ https://github.com/idiap/fullgrad-saliency
 # Usage
 
 ```
-#### tested asof now on vgg & resnet ###
-from fullgrad import *
+#### Tested on vgg , resnet, densenet, exception ####
+#### Feel free to use in custom models and other architectures and report issues ####
+
+from fullgrad import FullGrad
 from tensorflow.keras.applications.resnet50 import ResNet50,preprocess_input
 
 K.clear_session()
-model=ResNet50(weights='imagenet')
+base_model=ResNet50(weights='imagenet')
 
-fullgrad=Fullgrad(model)
-fullgrad_model=fullgrad.create_fullgradmodel()
+fullgrad=FullGrad(base_model)
+#### check if completeness test is satisfied. Refer example.ipynb ####
+fullgrad.checkCompleteness(input_)
 
-### preprcossed input --> channels_last 4D array ### 
-### from respective preprocessing func ###
-cam,maxclass=fullgrad.saliency(preprocessed_input)
+### input_ --> channels_last 4D array ### 
+preprocessed_input=preprocess_input(input_)
+saliency=fullgrad.saliency(preprocessed_input)
+saliency=fullgrad.postprocess_saliency_map(cam[0])
 
 #### more detailed usage is available in example.ipynb ####
 
