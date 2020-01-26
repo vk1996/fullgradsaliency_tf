@@ -210,8 +210,10 @@ class FullGrad():
 
         raw_output=K.eval(raw_output)
         fullgradient_sum=K.eval(fullgradient_sum)
-
-        print('completeness check:',raw_output.max(), fullgradient_sum)
+        
+        print('Running completeness test.....')
+        print('final_layer_max_class_output_with_linear activation:',raw_output.max())
+        print('sum of FullGrad:', fullgradient_sum)
 
         # Compare raw output and full gradient sum
         err_message = "\nThis is due to incorrect computation of bias-gradients.Saliency may not completely represent input&bias gradients, use at your own risk "
