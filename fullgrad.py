@@ -39,7 +39,7 @@ class FullGrad():
     if self.class_names != None:
       assert(len(self.class_names)==self.num_classes),'Num classes and class names not matched'
     else:
-      self.class_names= [None]*self.classes
+      self.class_names= [None]*self.num_classes
 
   def linear_output_model(self,model):
     x=Dense(self.num_classes)(model.layers[-2].output)
