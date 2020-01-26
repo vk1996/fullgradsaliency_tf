@@ -23,7 +23,7 @@ https://github.com/idiap/fullgrad-saliency
 
 ```
 '''
-Tested on vgg , resnet, densenet, exception
+Tested on vgg , resnet, densenet, Xception
 Feel free to use in custom models and other 
 architectures and report issues
 '''
