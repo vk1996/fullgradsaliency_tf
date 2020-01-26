@@ -22,8 +22,11 @@ https://github.com/idiap/fullgrad-saliency
 # Usage
 
 ```
-#### Tested on vgg , resnet, densenet, exception ####
-#### Feel free to use in custom models and other architectures and report issues ####
+'''
+Tested on vgg , resnet, densenet, exception
+Feel free to use in custom models and other 
+architectures and report issues
+'''
 
 from tensorflow.keras.applications.resnet50 import ResNet50,preprocess_input
 from tensorflow.keras import backend as K
@@ -37,7 +40,7 @@ base_model=ResNet50(weights='imagenet')
 
 fullgrad=FullGrad(base_model)
 
-### input_ --> channels_last 4D array ### 
+
 input_=np.ones(shape=(1,224,224,3))
 preprocessed_input=preprocess_input(input_)
 
@@ -45,11 +48,13 @@ preprocessed_input=preprocess_input(input_)
 fullgrad.checkCompleteness(input_)
 
 #### now get saliency map of highest class from fullgrad model ####
+
 saliency=fullgrad.saliency(preprocessed_input)
 saliency=fullgrad.postprocess_saliency_map(saliency[0])
 
-
-#### more detailed usage is available in example.ipynb ####
+'''
+more detailed usage is available in example.ipynb
+'''
 
 ```
 # TODO
