@@ -176,7 +176,7 @@ class FullGrad():
             target_class = tf.argmax(out,axis=1)
       
         if self.check:
-          print('class:',K.eval(target_class),K.eval(out).max())
+          print('class:',K.eval(target_class))
           self.check=False
         assert(len(features)==len(self.blockwise_biases)),'Number of features {} not equal to number of blockwise biases {}'.format(len(features),len(self.blockwise_biases))
         agg=tf.gather_nd(features[-1],[[0,tf.squeeze(tf.argmax(features[-1],axis=1))]])
