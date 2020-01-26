@@ -187,7 +187,7 @@ class FullGrad():
 
   def checkCompleteness(self,input):
         self.check=True
-        print('starting completeness test')
+        #print('starting completeness test')
         #Random input image
         #input=np.random.randn(1,224,224,3).astype(np.float32)
         input=tf.convert_to_tensor(input.astype(np.float32))
