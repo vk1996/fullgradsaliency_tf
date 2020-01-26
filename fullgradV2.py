@@ -212,7 +212,7 @@ class FullGrad():
         fullgradient_sum=K.eval(fullgradient_sum)
         
         print('Running completeness test.....')
-        print('final_layer_max_class_output_with_linear activation:',raw_output.max())
+        print('final_layer_max_class_linear_output:',raw_output.max())
         print('sum of FullGrad:', fullgradient_sum)
 
         # Compare raw output and full gradient sum
