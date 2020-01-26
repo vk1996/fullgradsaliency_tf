@@ -27,14 +27,19 @@ import cv2
 
 
 class FullGrad():
-  def __init__(self,base_model,num_classes=1000,verbose=False):
+  def __init__(self,base_model,num_classes=1000,class_names=None,verbose=False):
     self.base_model=base_model
     self.num_classes=num_classes
     self.model=self.linear_output_model(self.base_model)
     self.verbose=verbose
-    assert(self.num_classes>0),'Output classses must be greater than 1 but found'+str(self.num_classes)
+    assert(self.num_classes>0),'Output classes must be greater than 1 but found'+str(self.num_classes)
     self.blockwise_biases = self.getBiases()
     self.check=True
+    self.class_names=class_names
+    if self.class_names != None:
+      assert(len(self.class_names)==self.num_classes),'Num classes and class names not matched'
+    else:
+      self.class_names= [None]*self.classes
 
   def linear_output_model(self,model):
     x=Dense(self.num_classes)(model.layers[-2].output)
@@ -176,7 +181,8 @@ class FullGrad():
             target_class = tf.argmax(out,axis=1)
       
         if self.check:
-          print('class:',K.eval(target_class))
+          check_target_class=K.eval(target_class)[0]
+          print('class:',check_target_class,'class name:',self.class_names[check_target_class])
           self.check=False
         assert(len(features)==len(self.blockwise_biases)),'Number of features {} not equal to number of blockwise biases {}'.format(len(features),len(self.blockwise_biases))
         agg=tf.gather_nd(features[-1],[[0,tf.squeeze(tf.argmax(features[-1],axis=1))]])
