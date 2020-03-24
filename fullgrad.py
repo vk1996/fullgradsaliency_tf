@@ -120,7 +120,7 @@ class FullGrad():
           data[layer.output.name]=layer(input)
 
       if count>1:
-        if isinstance(layer,Add) or isinstance(layer,Concatenate) or isinstance(layer,Mutlipl):
+        if isinstance(layer,Add) or isinstance(layer,Concatenate) or isinstance(layer,Mutliply):
           data[layer.output.name]=layer([data[i.name] for i in layer.input ])
             
         elif isinstance(layer,Conv2D):
